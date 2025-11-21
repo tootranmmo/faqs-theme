@@ -385,6 +385,77 @@
   }
 
   /**
+   * Helpful Counter
+   */
+  function initHelpfulCounter() {
+    const helpfulCounters = document.querySelectorAll('.helpful-counter');
+
+    helpfulCounters.forEach((counter) => {
+      const postId = counter.dataset.postId;
+      const helpfulBtn = counter.querySelector('.helpful-btn');
+      const notHelpfulBtn = counter.querySelector('.not-helpful-btn');
+
+      if (helpfulBtn) {
+        helpfulBtn.addEventListener('click', () => submitHelpfulVote(postId, 'helpful', counter));
+      }
+
+      if (notHelpfulBtn) {
+        notHelpfulBtn.addEventListener('click', () => submitHelpfulVote(postId, 'not_helpful', counter));
+      }
+    });
+
+    function submitHelpfulVote(postId, voteType, counter) {
+      const formData = new FormData();
+      formData.append('action', 'faqs_helpful_vote');
+      formData.append('nonce', faqsTheme.nonce);
+      formData.append('post_id', postId);
+      formData.append('vote_type', voteType);
+
+      fetch(faqsTheme.ajaxUrl, {
+        method: 'POST',
+        body: formData,
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success) {
+            // Update counter display
+            const helpfulStats = counter.querySelector('.helpful-stats');
+            if (helpfulStats && data.data.helpful) {
+              const helpful = data.data.helpful;
+              const notHelpful = data.data.not_helpful || 0;
+              const total = helpful + notHelpful;
+              const percentage = total > 0 ? Math.round((helpful / total) * 100) : 0;
+
+              helpfulStats.innerHTML = `
+                <div class="flex items-center justify-between text-sm text-gray-600 dark:text-gray-400 mb-2">
+                  <span>${helpful} people found this helpful</span>
+                  <span>${percentage}%</span>
+                </div>
+                <div class="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
+                  <div class="bg-green-500 h-2 rounded-full transition-all duration-300" style="width: ${percentage}%"></div>
+                </div>
+              `;
+            }
+
+            // Hide buttons and show thank you message
+            const buttons = counter.querySelector('.helpful-buttons');
+            if (buttons) {
+              buttons.innerHTML = '<p class="text-center text-gray-600 dark:text-gray-400">' + data.data.message + '</p>';
+            }
+
+            showNotification(data.data.message, 'success');
+          } else {
+            showNotification(data.data.message, 'error');
+          }
+        })
+        .catch((error) => {
+          console.error('Helpful vote error:', error);
+          showNotification('An error occurred. Please try again.', 'error');
+        });
+    }
+  }
+
+  /**
    * Initialize all features on DOM ready
    */
   function init() {
@@ -394,6 +465,7 @@
     initLiveSearch();
     initRating();
     initBackToTop();
+    initHelpfulCounter();
 
     // Announce to screen readers that page is loaded
     const liveRegion = document.createElement('div');

@@ -172,3 +172,19 @@ require_once FAQS_THEME_DIR . '/inc/sitemap.php';
 require_once FAQS_THEME_DIR . '/inc/performance.php';
 require_once FAQS_THEME_DIR . '/inc/ajax-search.php';
 require_once FAQS_THEME_DIR . '/inc/dark-mode.php';
+require_once FAQS_THEME_DIR . '/inc/related-posts.php';
+require_once FAQS_THEME_DIR . '/inc/table-of-contents.php';
+require_once FAQS_THEME_DIR . '/inc/social-proof.php';
+require_once FAQS_THEME_DIR . '/inc/quick-actions.php';
+require_once FAQS_THEME_DIR . '/inc/keyboard-shortcuts.php';
+require_once FAQS_THEME_DIR . '/inc/admin-dashboard.php';
+
+/**
+ * Track post views on single post pages
+ */
+function faqs_theme_track_views() {
+    if (is_singular('post')) {
+        faqs_theme_track_post_views();
+    }
+}
+add_action('wp_head', 'faqs_theme_track_views');

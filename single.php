@@ -118,6 +118,8 @@ get_header();
                                                 (<?php echo number_format_i18n($rating_count); ?> <?php echo _n('vote', 'votes', $rating_count, 'faqs-theme'); ?>)
                                             </span>
                                         <?php endif; ?>
+                                        <?php echo faqs_theme_trending_badge(); ?>
+                                        <?php echo faqs_theme_display_post_views(); ?>
                                     </div>
                                 </div>
                                 <div class="rating-input" id="rating-input-<?php the_ID(); ?>" data-post-id="<?php the_ID(); ?>">
@@ -126,6 +128,9 @@ get_header();
                             </div>
                         </div>
                     </header>
+
+                    <!-- Quick Actions Bar -->
+                    <?php echo faqs_theme_display_quick_actions(); ?>
 
                     <!-- Article Content -->
                     <div class="entry-content prose prose-lg dark:prose-invert max-w-none p-8" itemprop="articleBody">
@@ -235,11 +240,19 @@ get_header();
                     </div>
                 </nav>
 
+                <!-- Helpful Counter -->
+                <div class="max-w-4xl mx-auto">
+                    <?php echo faqs_theme_display_helpful_counter(); ?>
+                </div>
+
+                <!-- Related FAQs -->
+                <?php faqs_theme_display_related_posts(get_the_ID(), 3); ?>
+
                 <!-- Comments -->
                 <?php
                 if (comments_open() || get_comments_number()) :
                 ?>
-                    <div class="comments-area bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
+                    <div class="comments-area bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 mt-8">
                         <?php comments_template(); ?>
                     </div>
                 <?php endif; ?>
