@@ -179,6 +179,7 @@ require_once FAQS_THEME_DIR . '/inc/quick-actions.php';
 require_once FAQS_THEME_DIR . '/inc/keyboard-shortcuts.php';
 require_once FAQS_THEME_DIR . '/inc/admin-dashboard.php';
 require_once FAQS_THEME_DIR . '/inc/category-system.php';
+require_once FAQS_THEME_DIR . '/inc/tools-manager.php';
 
 /**
  * Track post views on single post pages
