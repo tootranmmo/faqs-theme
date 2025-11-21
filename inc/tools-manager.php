@@ -44,7 +44,10 @@ class FAQs_Tools_Manager {
         $tools_dir = FAQS_THEME_DIR . '/inc/tools/';
 
         // Load placeholder template first
-        require_once $tools_dir . '_placeholder-template.php';
+        $placeholder_file = $tools_dir . '_placeholder-template.php';
+        if (file_exists($placeholder_file)) {
+            require_once $placeholder_file;
+        }
 
         // Load implemented tool files
         $tool_files = array(
@@ -382,6 +385,11 @@ class FAQs_Tools_Manager {
             FAQS_THEME_VERSION,
             true
         );
+
+        wp_localize_script('faqs-tools-admin', 'faqsTools', array(
+            'ajaxUrl' => admin_url('admin-ajax.php'),
+            'nonce' => wp_create_nonce('faqs_tools_nonce'),
+        ));
     }
 
     /**

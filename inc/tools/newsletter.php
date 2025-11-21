@@ -20,8 +20,22 @@ class FAQs_Newsletter_Manager {
         add_action('wp_ajax_faqs_newsletter_subscribe', array($this, 'handle_subscription'));
         add_shortcode('faqs_newsletter', array($this, 'newsletter_form_shortcode'));
 
-        // Create custom table on activation
-        register_activation_hook(FAQS_THEME_DIR . '/functions.php', array($this, 'create_table'));
+        // Create custom table on init
+        add_action('after_switch_theme', array($this, 'create_table'));
+        $this->maybe_create_table();
+    }
+
+    /**
+     * Check and create table if not exists
+     */
+    public function maybe_create_table() {
+        global $wpdb;
+        $table_name = $wpdb->prefix . 'faqs_newsletter';
+
+        // Check if table exists
+        if ($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
+            $this->create_table();
+        }
     }
 
     public function create_table() {
