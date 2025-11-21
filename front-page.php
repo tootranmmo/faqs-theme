@@ -133,6 +133,113 @@ get_header();
         </div>
     </section>
 
+    <!-- Browse by Category -->
+    <section class="categories-section py-16 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800" role="region" aria-label="<?php esc_attr_e('Browse by category', 'faqs-theme'); ?>">
+        <div class="container mx-auto px-4">
+            <div class="section-header text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">
+                    <?php _e('Browse by Category', 'faqs-theme'); ?>
+                </h2>
+                <p class="text-lg text-gray-600 dark:text-gray-400">
+                    <?php _e('Explore our comprehensive knowledge base organized by topics', 'faqs-theme'); ?>
+                </p>
+            </div>
+
+            <?php
+            // Get all parent categories
+            $parent_categories = get_categories(array(
+                'parent' => 0,
+                'hide_empty' => false,
+                'orderby' => 'meta_value_num',
+                'meta_key' => 'category_order',
+                'order' => 'ASC',
+            ));
+
+            if (!empty($parent_categories)) :
+            ?>
+                <div class="categories-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <?php foreach ($parent_categories as $category) :
+                        $icon = get_term_meta($category->term_id, 'category_icon', true);
+                        $color = get_term_meta($category->term_id, 'category_color', true);
+
+                        // Default color if not set
+                        if (empty($color)) {
+                            $color = '#3b82f6';
+                        }
+
+                        // Get subcategories
+                        $subcategories = get_categories(array(
+                            'parent' => $category->term_id,
+                            'hide_empty' => false,
+                            'number' => 4,
+                        ));
+                    ?>
+                        <div class="category-card group bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden border-t-4" style="border-top-color: <?php echo esc_attr($color); ?>">
+                            <a href="<?php echo esc_url(get_category_link($category->term_id)); ?>" class="block p-6">
+                                <!-- Category Icon & Title -->
+                                <div class="flex items-start gap-4 mb-4">
+                                    <?php if ($icon) : ?>
+                                        <div class="category-icon text-4xl flex-shrink-0 transform group-hover:scale-110 transition-transform">
+                                            <?php echo $icon; ?>
+                                        </div>
+                                    <?php endif; ?>
+                                    <div class="flex-1">
+                                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                                            <?php echo esc_html($category->name); ?>
+                                        </h3>
+                                        <span class="text-sm text-gray-500 dark:text-gray-400">
+                                            <?php printf(_n('%s article', '%s articles', $category->count, 'faqs-theme'), number_format_i18n($category->count)); ?>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <!-- Category Description -->
+                                <?php if ($category->description) : ?>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">
+                                        <?php echo esc_html($category->description); ?>
+                                    </p>
+                                <?php endif; ?>
+
+                                <!-- Subcategories -->
+                                <?php if (!empty($subcategories)) : ?>
+                                    <div class="subcategories space-y-1 mb-3">
+                                        <?php foreach ($subcategories as $subcat) : ?>
+                                            <div class="subcategory-item text-xs text-gray-500 dark:text-gray-400 flex items-center gap-1">
+                                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                                </svg>
+                                                <span><?php echo esc_html($subcat->name); ?></span>
+                                            </div>
+                                        <?php endforeach; ?>
+                                    </div>
+                                <?php endif; ?>
+
+                                <!-- View All Link -->
+                                <div class="view-all flex items-center justify-between mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                                    <span class="text-sm font-medium text-blue-600 dark:text-blue-400 group-hover:underline">
+                                        <?php _e('Explore', 'faqs-theme'); ?>
+                                    </span>
+                                    <svg class="w-4 h-4 text-blue-600 dark:text-blue-400 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                                    </svg>
+                                </div>
+                            </a>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            <?php else : ?>
+                <div class="text-center py-12 bg-white dark:bg-gray-800 rounded-lg">
+                    <p class="text-gray-600 dark:text-gray-400 mb-6">
+                        <?php _e('No categories found. Import the default category structure to get started.', 'faqs-theme'); ?>
+                    </p>
+                    <a href="<?php echo admin_url('tools.php?page=faqs-category-import'); ?>" class="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors">
+                        <?php _e('Import Categories', 'faqs-theme'); ?>
+                    </a>
+                </div>
+            <?php endif; ?>
+        </div>
+    </section>
+
     <!-- Latest FAQs -->
     <section class="latest-posts-section py-16 bg-gray-50 dark:bg-gray-900" role="region" aria-label="<?php esc_attr_e('Latest FAQs', 'faqs-theme'); ?>">
         <div class="container mx-auto px-4">

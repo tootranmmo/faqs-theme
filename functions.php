@@ -178,6 +178,7 @@ require_once FAQS_THEME_DIR . '/inc/social-proof.php';
 require_once FAQS_THEME_DIR . '/inc/quick-actions.php';
 require_once FAQS_THEME_DIR . '/inc/keyboard-shortcuts.php';
 require_once FAQS_THEME_DIR . '/inc/admin-dashboard.php';
+require_once FAQS_THEME_DIR . '/inc/category-system.php';
 
 /**
  * Track post views on single post pages
