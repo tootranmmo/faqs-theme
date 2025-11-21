@@ -1,0 +1,29 @@
+{
+  "name": "faqs-theme",
+  "version": "1.0.0",
+  "description": "Modern WordPress FAQs theme with Tailwind CSS, Dark Mode, 5-Star Rating, and Enterprise SEO",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tailwindcss -i ./src/style.css -o ./assets/css/style.css --watch",
+    "build": "tailwindcss -i ./src/style.css -o ./assets/css/style.css --minify",
+    "production": "npm run build"
+  },
+  "keywords": [
+    "wordpress",
+    "theme",
+    "tailwindcss",
+    "faq",
+    "dark-mode",
+    "seo"
+  ],
+  "author": "Claude AI",
+  "license": "GPL-2.0-or-later",
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.10",
+    "tailwindcss": "^3.4.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tootranmmo/faqs-theme.git"
+  }
+}

@@ -1,0 +1,22 @@
+/*
+Theme Name: FAQs Theme
+Theme URI: https://github.com/tootranmmo/faqs-theme
+Description: Modern WordPress FAQs theme with Tailwind CSS, Dark Mode, 5-Star Rating, Enterprise SEO, and full accessibility (WCAG 2.1 AA)
+Version: 1.0.0
+Author: Claude AI
+Author URI: https://www.anthropic.com
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: faqs-theme
+Tags: accessibility-ready, custom-menu, featured-images, threaded-comments, translation-ready, dark-mode, seo-ready
+Requires at least: 6.0
+Tested up to: 6.4
+Requires PHP: 7.4
+
+FAQs Theme is a modern, high-performance WordPress theme designed specifically for FAQ websites.
+It features Tailwind CSS 3.4+, Dark Mode, 5-Star Rating System, Enterprise-Level SEO with Schema.org markup,
+and comprehensive performance optimizations.
+*/
+
+/* Basic reset and core styles are handled by Tailwind CSS */
+/* This file is required by WordPress to recognize the theme */

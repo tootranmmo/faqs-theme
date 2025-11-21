@@ -1,0 +1,11 @@
+Screenshot Placeholder
+
+For a proper WordPress theme, you should add a screenshot.png file (1200x900px)
+showing your theme's homepage design.
+
+This will be displayed in the WordPress theme selection screen.
+
+To add a screenshot:
+1. Create a 1200x900px image of your theme
+2. Save it as screenshot.png in the theme root directory
+3. The image will automatically appear in Appearance > Themes
