@@ -166,6 +166,217 @@
   .glass {
     @apply bg-white bg-opacity-80 dark:bg-gray-800 dark:bg-opacity-80 backdrop-blur-lg;
   }
+
+  /* Code Syntax Highlighting */
+  .entry-content pre {
+    @apply bg-gray-900 dark:bg-black text-gray-100 p-4 rounded-lg overflow-x-auto my-6;
+    font-family: 'Monaco', 'Courier New', monospace;
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+
+  .entry-content pre code {
+    @apply bg-transparent text-gray-100 p-0;
+    font-weight: normal;
+  }
+
+  .entry-content code {
+    @apply text-pink-600 dark:text-pink-400 bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-sm font-mono;
+  }
+
+  /* Copy code button */
+  .code-block-wrapper {
+    @apply relative;
+  }
+
+  .copy-code-btn {
+    @apply absolute top-2 right-2 px-3 py-1 bg-gray-700 hover:bg-gray-600 text-white text-xs rounded transition-colors;
+  }
+}
+
+/**
+ * Mobile Content Fixes - Prevent Overflow
+ */
+@layer base {
+  /* Prevent content overflow on mobile */
+  .entry-content,
+  .comment-content,
+  .entry-excerpt,
+  article {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  /* Handle long URLs and text */
+  .entry-content p,
+  .entry-content li,
+  .comment-content p,
+  .comment-content li {
+    overflow-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+  }
+
+  /* Links should break properly */
+  .entry-content a,
+  .comment-content a {
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  /* Images should never overflow */
+  .entry-content img,
+  .comment-content img,
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Tables responsive */
+  .entry-content table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  @media (max-width: 768px) {
+    .entry-content table {
+      font-size: 0.875rem;
+    }
+  }
+
+  /* Pre and Code blocks with horizontal scroll */
+  .entry-content pre {
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Blockquotes */
+  .entry-content blockquote {
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  /* Embedded content */
+  .entry-content iframe,
+  .entry-content embed,
+  .entry-content object,
+  .entry-content video {
+    max-width: 100%;
+  }
+}
+
+/**
+ * Mobile-specific fixes
+ */
+@media (max-width: 640px) {
+  /* Reduce padding on mobile */
+  .entry-content {
+    font-size: 1rem;
+    line-height: 1.75;
+  }
+
+  /* Headings should wrap */
+  .entry-title,
+  .entry-content h1,
+  .entry-content h2,
+  .entry-content h3,
+  .entry-content h4,
+  .entry-content h5,
+  .entry-content h6 {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+
+  /* Quick actions bar - reduce on mobile */
+  .quick-actions {
+    padding: 0.5rem;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .quick-actions .flex {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+
+  /* Stats grid - stack on mobile */
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* Reduce font sizes slightly on small screens */
+  .post-card {
+    font-size: 0.9375rem;
+  }
+
+  /* Breadcrumb - wrap on mobile */
+  .breadcrumb ol {
+    flex-wrap: wrap;
+  }
+}
+
+/**
+ * Container fixes for mobile
+ */
+@media (max-width: 768px) {
+  /* Ensure containers don't overflow */
+  .container {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  /* Cards should have appropriate padding */
+  .post-card,
+  .single-post,
+  .page-content {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  /* Meta information should wrap */
+  .entry-meta {
+    flex-wrap: wrap;
+  }
+
+  /* Share buttons - stack on very small screens */
+  .share-buttons .flex {
+    flex-wrap: wrap;
+  }
+}
+
+/**
+ * Typography fixes
+ */
+@layer base {
+  /* Prose content with proper constraints */
+  .prose {
+    max-width: 100%;
+  }
+
+  .prose p,
+  .prose li {
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  /* Code in prose */
+  .prose code {
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .prose pre code {
+    white-space: pre;
+    word-break: normal;
+  }
 }
 
 /**
